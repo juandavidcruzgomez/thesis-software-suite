@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>play1616.png</file>
+        <file>reset16.png</file>
+        <file>step1616.png</file>
+        <file>stop16.png</file>
+        <file>conf1616.png</file>
+        <file>addpov16.png</file>
+    </qresource>
+</RCC>

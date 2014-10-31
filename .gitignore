@@ -1,2 +1,4 @@
 #Files and directories to ignore
 build/
+
+*.*~

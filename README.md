@@ -1,13 +1,8 @@
 # Juan David Cruz-Gómez PhD Thesis software suite
 
-This repository contains several software projects developped during my PhD thesis
-at Telecom - Bretagne. Since the software and algorithms were mostly written for
-papers and thus in a rush, the code may not be the best and cleanest code you
-may ever seen.
+This repository contains several software projects developed during my PhD thesis at Telecom - Bretagne. Since the software and algorithms were mostly written for papers and thus in a rush, the code may not be the best and cleanest code you may ever seen.
 
-However, in an effort to write clean code, I try to document all the code and to
-automate the building process. To do this I use CMake (I hope you know the basics
-of CMake).
+However, in an effort to write clean code, I try to document all the code and to automate the building process. To do this I use CMake (I hope you know the basics of CMake).
 
 ## Table of contents
 
@@ -33,51 +28,167 @@ of CMake).
         * [Point of view manipulation](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-point-of-view-manipulation)
         
 ## Notice and license
+-------------------------
+The MIT License (MIT)
+
+Copyright (c) 2014 Juan David Cruz Gómez and Telecom - Bretagne
+juan.cruzgomez@telecom-bretagne.eu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-------------------------
+
 
 ## Installing CMake
 
+
 ## Installing and configuring Tulip
+Some of the sub-projects are linked against the [Tulip library](http://tulip.labri.fr/TulipDrupal/). 
+
+Specifically, the version of Tulip that has been used is the **3.8** and is the only one I have made tests on.
+
+You can find the source of the 3.8 version of Tulip [here](http://sourceforge.net/projects/auber/files/tulip/tulip-3.8.0/).
+
+Now, if you just don't want to compile and install, you can download the packages for your distribution. In Debian (I guess in Ubuntu also) you can install Tulip 3.7 using:
+
+~~~~
+juancrug@juandavid-office:~$ sudo apt-get install tulip libtulip-dev
+~~~~
+
+Note that you need to install the development package to compile the software in this suite.
 
 ## Installing and configuring ATLAS
+ATLAS stands for _Automatically Tuned Linear Algebra Software_ so, it's a linear algebra package that implements several vector/matrix operations ready to use.
+
+**Important note:**  save the intstallation prefix for ATLAS. I usually chose to install these kind of libraries in ~/ 
+
+Follow the instructions [here](http://math-atlas.sourceforge.net/atlas_install/atlas_install.html) to configure ans install ATLAS. 
+
+*Why do you need to configure and build ATLAS?* well, this library is used by several algorithms and it depends on the system being used, e.g., 32 bits with 512 Kb L2 cache is different than 64 bits processors with 1024 Kb L2 cache and 8 cores.
+
+Sorry, this is the way that it is.
 
 ## Projects
+This is the set of projects I have made these years at Telecom - Bretagne.
 
 ### Base algorithms
+Basic algorithms and libraries I have created for my other algoritms. Since I do not like the disorder and I do not want to rewriteall over again the same code, I decided to write libraries and use them as tools whenever I needed.
+
+That's a lot work for me I think, but it's a lot cleaner and centralized. Even more, I think that the excuse _I'm a computer scientist, so I write messy code_ is just lame.
 
 #### Matrix library
+This library encapsulates the behaviour of a matrix object and implements several operations like matrix-matrix multiplication and scalar multiplication.
+
+As you can imagine, this library has to be linked against the ATLAS library.
+
+Find the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/base/matrix-lib/?at=master).
 
 #### Multidimensional scaling
 
+This library isolates the MDS-SMACOF algorithm from [Borg & Groenen](http://www.springer.com/statistics/social+sciences+%26+law/book/978-0-387-25150-9) and makes it available for other algorithms such as the [boundary communities visualization algorithm](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-visualization).
+
+Find the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/base/mds-smacof/?at=master).
+
 #### Trie structure
+
+This library implements a data structure called trie (pronounced as try) that is used by the Galois lattice generator algorithm. The importance of this structure lies in the access speed to stored elements: this is an indexed tree that allows to rapidly find nodes with certain data.
+
+This is used for to index the concepts of the lattice while being generated.
 
 ### Basic community detection and visualization algorithms
 
 #### Community detection V1: weight modification
+This is the first version of the algorithm for detecting communities: first, the version in which the weights of the edges of the graphs are modified using the information from a SOM clustering, then the Louvain's algorithm is used to find the final communities.
 
-#### Community detection V2: contingency matrix manupulation
+Find the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/algorithms/clustering/mixed/?at=master).
+
+#####Papers
+* [Analyse intégrée des réseaux sociaux pour la détection et la visualisation de communautés - TSI 2014](http://tsi.revuesonline.com/article.jsp?articleId=19440)
+* [Community detection and visualization in social networks: Integrating structural and semantic information - TIST 2013](http://dl.acm.org/citation.cfm?doid=2542182.2542193)
+* [Détection et visualisation des communautés dans les réseaux sociaux - Revue d'Intelligence Artificielle (2012)](http://ria.revuesonline.com/article.jsp?articleId=17738)
+
+* [Semantic Clustering of Social Networks using Points of View - Coria 2011](http://www.asso-aria.org/coria/2011/175.pdf)
+* [Point of View Based Clustering of Socio-Semantic Network - EGC 2011](http://editions-rnti.fr/?inprocid=1000973)
+
+#### Community detection V2: contingency matrix manipulation
+This algorithm uses the affiliation matrices obteined from two partitions, one from the structural variable and another from the attributes of the nodes of the network. By multiplicating these matrices we obtain a contingency matrix, in which eaxh psition is in fact the number of agreements between the groups of both partitions, i.e., the number of nodes placed on the same group in both partitions.
+
+Then, by manipulating (spliting) the rows of the contigency matrix it is possible to find new communities: the idea is to maximize the variance of the new potential groups.
+
+*Find the code [here](#TODO).*
+
+##### Papers
+* [Integrating heterogeneous information within a social network for detecting communities - ASONAM 2013](http://dl.acm.org/citation.cfm?doid=2492517.2492588)
+* [Information integration for detecting communities in attributed graphs - CASoN 2013](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6622601)
 
 #### Community detection V3: Galois lattice-based community detection
+This is the third version of the community detection algorithm. This algorithm builds a galois lattice to integrate the affilaition matrix generated from the structural variable and the features of the nodes represented as a binary matrix. These two matrices are concatenated into one, and from it the lattice is calculated.
+
+Then the concepts from the lattices are integrated according to their depth in the lattice: the more deep actors are in the lattice, the more central they are for the community.
+
+*Find the code [here](#TODO).*
+
+#### Papers
+- Not papers yet :-(
 
 #### Note on the entropy version
+This community detection algorithm could be seen as the 1.5 version, however it has been written in Java and at this stage is not fully integrated into the platform.
+
+This algorithm modifies the Louvain's algorithm to introduce an entropy criterium and change the way to communities are fused.
+
+*Find the code [here](#TODO).*
+
+#### Papers
+* [Entropy based community detection in augmented social networks - CASoN 2011](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6085937)
 
 #### Boundary communities visualization algorithm
+This is the visualization algorithm that divides the nodes into two kinds: boundary or border nodes and inner nodes. The first kind are the nodes that connect different communities while the second are the nodes connected only with other nodes inside theirs own communities.
+
+*Find the code [here](#TODO).*
+
+#### Papers
+* [Analyse intégrée des réseaux sociaux pour la détection et la visualisation de communautés - TSI 2014](http://tsi.revuesonline.com/article.jsp?articleId=19440)
+* [Community detection and visualization in social networks: Integrating structural and semantic information - TIST 2013](http://dl.acm.org/citation.cfm?doid=2542182.2542193)
+* [Layout Algorithm for Clustered Graphs to Analyze Community Interactions in Social Networks - ASONAM 2012](http://www.computer.org/csdl/proceedings/asonam/2012/4799/00/4799a704-abs.html)
+
 
 ### Tulip plugins
+These are the Tulip plugin version of the algorithms, i.e., the plugin definitions for the algorithms in such a way they can be used from Tulip menu.
+
+These plugins should be compiled from the root folder. Get to the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/pov-plugins/?at=master) and follow the intructions there to compile.
 
 #### Importers
+This folder is meant to contain importers from different king of files. Up to now there is only the [DIMACS](http://www.cc.gatech.edu/dimacs10/downloads.shtml) graph files importer.
 
 #### Community detection
+This folder contains the Louvain's and the PoV community detection algorithms.
 
 #### Visualization
+Plugin for the visualization algorithm
 
 #### Point of view manipulation
-
+This plugin implements a way to test different points of view using the PoV community detection algorithm plus the layout method.
         
 
 
-cmake -DTULIP_DIR=/home/juancrug/tulip3 \
+<!--- cmake -DTULIP_DIR=/home/juancrug/tulip3 \
   -DCMAKE_MODULE_PATH=/home/juancrug/tulip3/share/tulip \
   -DATLAS_PREFIX=/home/juancrug \
   -DPREFIX=/home/juancrug \
   ..
-
+ -->

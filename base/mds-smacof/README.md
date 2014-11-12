@@ -1,27 +1,62 @@
-# README #
+# Multi-Dimensional Scaling - SMACOF algorithm
 
-This is a really basic library to do MultiDimensional Scaling with SMACOF.
-This is very simple (and maybe buggy, IDK) but can be useful, and indeed
-I use it for other projects I'm working on.
-Since I've wrote this for my own projects, other functions may be added in the future, sorry for the inconvenience.
+This is a really basic library to do MultiDimensional Scaling with SMACOF. This is very simple (and maybe buggy, IDK) but can be useful, and indeed I use it for other projects I'm working on. Since I've wrote this for my own projects, other functions may be added in the future, sorry for the inconvenience.
 
-### What do yo need? ###
+## License
+The MIT License (MIT)
 
-* CMake
+Copyright (c) 2014 Juan David Cruz Gómez and Telecom - Bretagne
+juan.cruzgomez@telecom-bretagne.eu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-------------------------------------------------------
+## Compiling and installing the algorithms
+###Requisites
 * A reasonable good C++ compiler (I use gcc 4.7.2)
+* Install CMake
 * This project uses the Matrix library you can find [here](https://bitbucket.org/juandavidcruz/matrix-basic-library/).
 
-### How do I get set up? ###
-
-* Create a build folder at the same level of src
-* Execute: 
+###Compiling the code
+* Go to the base folder:
 ~~~~
-  cmake -DPREFIX=<prefix> \
-  -DMATRIX_PREFIX=<matrix prefix> \
+juancrug@juandavid-office:~$ cd path-to-repo/software-suite/base/mds-smacof
+~~~~
+* Create a build folder and go into it:
+~~~~
+juancrug@juandavid-office:~/path-to-repo/software-suite/base/mds-smacof/$ mkdir build
+juancrug@juandavid-office:~/path-to-repo/software-suite/base/mds-smacof/$ cd build
+~~~~
+* Configure with Cmake:
+~~~~
+juancrug@juandavid-office:~/path-to-repo/software-suite/base/mds-smacof/build$ cmake -DMATRIX_PREFIX=/home/juancrug \
+  -DPREFIX=/home/juancrug \
   ..
-  make && make install
 ~~~~
-* Done! You should find within {prefix}/lib the library binary and within  {prefix}/include the header
-### What next? ###
+**Note:** replace the configuration paths with your own, custom paths.
+
+* Build and install:
+~~~~
+juancrug@juandavid-office:~/path-to-repo/software-suite/base/mds-smacof/build$ make && make install
+~~~~
+
+At this stage the libraries should be installed in /PREFIX/lib while the public interfaces (.h files) should be in /PREFIX/
+
+## What next?
 
 * I don't know, it depends on the needs...

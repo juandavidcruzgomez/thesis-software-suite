@@ -75,7 +75,7 @@ Note that you need to install the development package to compile the software in
 ## Installing and configuring ATLAS
 ATLAS stands for _Automatically Tuned Linear Algebra Software_ so, it's a linear algebra package that implements several vector/matrix operations ready to use.
 
-**Important note:**  save the intstallation prefix for ATLAS. I usually chose to install these kind of libraries in ~/ 
+**Important note:**  save the installation prefix for ATLAS. I usually chose to install these kind of libraries in ~/ 
 
 Follow the instructions [here](http://math-atlas.sourceforge.net/atlas_install/atlas_install.html) to configure ans install ATLAS. 
 
@@ -87,12 +87,12 @@ Sorry, this is the way that it is.
 This is the set of projects I have made these years at Telecom - Bretagne.
 
 ### Base algorithms
-Basic algorithms and libraries I have created for my other algoritms. Since I do not like the disorder and I do not want to rewriteall over again the same code, I decided to write libraries and use them as tools whenever I needed.
+Basic algorithms and libraries I have created for my other algorithms. Since I do not like the disorder and I do not want to rewrite all over again the same code, I decided to write libraries and use them as tools whenever I needed.
 
 That's a lot work for me I think, but it's a lot cleaner and centralized. Even more, I think that the excuse _I'm a computer scientist, so I write messy code_ is just lame.
 
 #### Matrix library
-This library encapsulates the behaviour of a matrix object and implements several operations like matrix-matrix multiplication and scalar multiplication.
+This library encapsulates the behavior of a matrix object and implements several operations like matrix-matrix multiplication and scalar multiplication.
 
 As you can imagine, this library has to be linked against the ATLAS library.
 
@@ -126,9 +126,9 @@ Find the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e
 * [Point of View Based Clustering of Socio-Semantic Network - EGC 2011](http://editions-rnti.fr/?inprocid=1000973)
 
 #### Community detection V2: contingency matrix manipulation
-This algorithm uses the affiliation matrices obteined from two partitions, one from the structural variable and another from the attributes of the nodes of the network. By multiplicating these matrices we obtain a contingency matrix, in which eaxh psition is in fact the number of agreements between the groups of both partitions, i.e., the number of nodes placed on the same group in both partitions.
+This algorithm uses the affiliation matrices obtained from two partitions, one from the structural variable and another from the attributes of the nodes of the network. By the multiplication of these matrices we obtain a contingency matrix, in which each position is in fact the number of agreements between the groups of both partitions, i.e., the number of nodes placed on the same group in both partitions.
 
-Then, by manipulating (spliting) the rows of the contigency matrix it is possible to find new communities: the idea is to maximize the variance of the new potential groups.
+Then, by manipulating (splitting) the rows of the contingency matrix it is possible to find new communities: the idea is to maximize the variance of the new potential groups.
 
 *Find the code [here](#TODO).*
 
@@ -149,7 +149,7 @@ Then the concepts from the lattices are integrated according to their depth in t
 #### Note on the entropy version
 This community detection algorithm could be seen as the 1.5 version, however it has been written in Java and at this stage is not fully integrated into the platform.
 
-This algorithm modifies the Louvain's algorithm to introduce an entropy criterium and change the way to communities are fused.
+This algorithm modifies the Louvain's algorithm to introduce an entropy criterion and change the way to communities are fused.
 
 *Find the code [here](#TODO).*
 
@@ -170,7 +170,7 @@ This is the visualization algorithm that divides the nodes into two kinds: bound
 ### Tulip plugins
 These are the Tulip plugin version of the algorithms, i.e., the plugin definitions for the algorithms in such a way they can be used from Tulip menu.
 
-These plugins should be compiled from the root folder. Get to the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/pov-plugins/?at=master) and follow the intructions there to compile.
+These plugins should be compiled from the root folder. Get to the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/pov-plugins/?at=master) and follow the instructions there to compile.
 
 #### Importers
 This folder is meant to contain importers from different king of files. Up to now there is only the [DIMACS](http://www.cc.gatech.edu/dimacs10/downloads.shtml) graph files importer.

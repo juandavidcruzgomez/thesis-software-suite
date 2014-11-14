@@ -3,8 +3,9 @@
 The base folder contains the initial elements on which the algorithms and the
 plugins are built. These elements are:
 
-* The [basic matrix](https://bitbucket.org/juandavidcruz_tb/software-suite/src/c2ca1bc7cbe5df27c0f030cbbac02a9937ae158d/base/matrix-lib/?at=master) manipulation library, and
+* The [basic matrix](https://bitbucket.org/juandavidcruz_tb/software-suite/src/c2ca1bc7cbe5df27c0f030cbbac02a9937ae158d/base/matrix-lib/?at=master) manipulation library, 
 * The [MDS-SMACOF](https://bitbucket.org/juandavidcruz_tb/software-suite/src/c2ca1bc7cbe5df27c0f030cbbac02a9937ae158d/base/mds-smacof/?at=master) library that's used by the layout algorithm
+* The [Galois-lattice](#) implementation. This library is used by the community detection algorithm V3.
 
 In each folder you will find additional information on how to build it.
 
@@ -40,6 +41,7 @@ following order:
 
 **1.** basic-matrix (compile and install)
 **2.** mds-smacof (compile and install)
+**2.** galois-lattices (compile and install)
 
 **Otherwise it will fail.**
 

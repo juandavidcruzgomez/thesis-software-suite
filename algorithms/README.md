@@ -1,5 +1,5 @@
 # Community detection algorithms
-In this repositiory you will find the version 1 (2 and 3) of the community detection algorithms plus the Louvain's algorithm implemented for Tulip.
+In this repositiory you will find the version 1, 2 and 3 of the community detection algorithms plus the Louvain's algorithm implemented for Tulip.
 
 Other algorithms included in this repository are for data clustering (I don't think they are really interesting)
 

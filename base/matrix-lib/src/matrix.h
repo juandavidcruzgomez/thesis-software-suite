@@ -243,7 +243,24 @@ public:
   
   static int counter;
   
+  /**
+     * Moves the col_start-th column to the last column and the columns
+     * between col_start+1 and m_ncols-1 to the left.
+     * @param col_start the starting index of the shift
+     */
+    void shift_left( int col_start );
+    /**
+     * Removes the last columns starting from_col
+     * @param from_col starting column
+     */
+    void remove_tail_col( int from_col );
+    
 private:
+    /**
+      * Swaps the elements contained in row1,column1 and row2,column2
+      */
+    void swap( int row1, int column1, int row2, int column2 );
+  
   /**
    * Wraps the multiplication operation so different multiplication implementations can be used
    */

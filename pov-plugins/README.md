@@ -45,8 +45,8 @@ juancrug@juandavid-office:~$ cd path-to-repo/software-suite/pov-plugins
 ~~~~
 * Create a build folder and go into it:
 ~~~~
-juancrug@juandavid-office:~/path-to-repo/software-suite/pov-plugins/$ mkdir build
-juancrug@juandavid-office:~/path-to-repo/software-suite/pov-plugins/$ cd build
+juancrug@juandavid-office:~/path-to-repo/software-suite/pov-plugins$ mkdir build
+juancrug@juandavid-office:~/path-to-repo/software-suite/pov-plugins$ cd build
 ~~~~
 * Configure with Cmake:
 ~~~~

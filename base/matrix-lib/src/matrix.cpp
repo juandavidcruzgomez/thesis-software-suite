@@ -437,6 +437,43 @@ int Matrix::count_elements( float val )
   return result;
 }
 
+void Matrix::swap( int row1, int column1, int row2, int column2 ){
+	assert( row1 > -1 && row1 < m_nrows && column1 > -1 && column1 < m_ncols && 
+		   row2 > -1 && row2 < m_nrows && column2 > -1 && column2 < m_ncols);
+	
+	float element1 = getElement(row1, column1);
+	float element2 = getElement( row2, column2 );
+	setElement( row1, column1, element2 );
+  setElement( row2, column2, element1 );
+	
+}
+
+void Matrix::shift_left( int col_start ){
+  assert( col_start >= 0 && col_start < m_ncols );
+  //Save the staring column:
+  float* start_column = new float[m_nrows];
+  if( start_column != 0 ){
+    for( int i = 0; i < m_nrows; i++ ){
+      start_column[i] = getElement(i, col_start);
+    }
+    //Shift the remaining columns
+    for( int i = ( col_start*m_nrows ); i < ( m_nrows*m_ncols ) - m_nrows; i++ ){
+      m_pdmatrix[i] = m_pdmatrix[i+m_nrows];
+    }
+    //Set the last column
+    for( int i = 0; i < m_nrows; i++ ){
+      setElement(i, m_ncols-1, start_column[i]);
+    }
+    delete[] start_column;
+  } 
+}
+
+void Matrix::remove_tail_col( int from_col ){
+  assert( from_col >= 0 && from_col < m_ncols );
+  m_ncols = m_ncols - from_col;
+  
+}
+
 void Matrix::matMult( Matrix* right_mat, Matrix* dest_mat, float alpha )
 {
   assert( right_mat != 0 && dest_mat != 0 && right_mat->getNrows() == m_ncol_max_ret && dest_mat->getNrows() == m_nrow_max_ret && dest_mat->getNcols() == right_mat->getNcols());

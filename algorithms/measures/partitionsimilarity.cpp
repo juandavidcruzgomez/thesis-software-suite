@@ -1,3 +1,27 @@
+/**
+ The MIT License (MIT)
+
+ Copyright (c) 2014 Juan David Cruz Gómez and Telecom - Bretagne 
+ juan.cruzgomez@telecom-bretagne.eu
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+*/
 #include "partitionsimilarity.h"
 
 double calculate_ARI( Graph* partition_a, Graph* partition_b )
@@ -150,9 +174,8 @@ Matrix* generate_contingency_matrix( Matrix* partition_a, Matrix* partition_b )
   int n = partition_b->getNcols();
   int k = partition_a->getNrows();
   partition_a->transpose();
-  float* conf_mat = new float[ n*m ];
-  mat_mult_float(m, n, k, partition_a->getPdmatrix(), partition_b->getPdmatrix(), conf_mat, 1, 0);
-  Matrix* contingency_matrix = new Matrix( m, n, COLUMN_MAJOR, conf_mat );
+  Matrix* contingency_matrix = new Matrix( m, n, COLUMN_MAJOR );
+  partition_a->matMult( partition_b, contingency_matrix, 1.0 );
   return contingency_matrix;
 }
 

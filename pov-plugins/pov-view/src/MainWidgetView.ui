@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Juan David Cruz-Gómez</author>
  <class>mainWidgetView</class>
  <widget class="QWidget" name="mainWidgetView">
   <property name="geometry">
@@ -166,7 +167,6 @@
       <enum>Qt::CustomContextMenu</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
       <number>2</number>
      </property>
      <widget class="QWidget" name="summaryTab">
@@ -887,8 +887,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>176</width>
-               <height>564</height>
+               <width>179</width>
+               <height>549</height>
               </rect>
              </property>
              <property name="autoFillBackground">

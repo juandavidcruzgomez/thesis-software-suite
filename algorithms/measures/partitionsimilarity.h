@@ -26,6 +26,7 @@
 #define PARTITIONSIM_H
 
 #include <tulip/Graph.h>
+#include <math.h>
 
 #include <matrix.h>
 

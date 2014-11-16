@@ -58,7 +58,7 @@ SET( INC_PATH ${BASE_PREFIX}/include )
 # Matrix library
 FIND_LIBRARY(BMATRIX NAMES bmatrix PATHS ${LIB_PATH} NO_DEFAULT_PATH )
 # Trie library
-#FIND_LIBRARY(BTRIE NAMES btrie PATHS ${LIB_PATH} NO_DEFAULT_PATH )
+FIND_LIBRARY(GLATT NAMES galoislatt PATHS ${LIB_PATH} NO_DEFAULT_PATH )
 # Clustering libraries
 FIND_LIBRARY(TAB_IMPORT_LIB_NAME NAMES tableimport PATHS ${LIB_PATH} NO_DEFAULT_PATH )
 FIND_LIBRARY(LOUVAIN_LIB_NAME NAMES louvain PATHS ${LIB_PATH} NO_DEFAULT_PATH )
@@ -67,10 +67,9 @@ FIND_LIBRARY(CENTRALITY_LIB_NAME NAMES central PATHS ${LIB_PATH} NO_DEFAULT_PATH
 FIND_LIBRARY(MIXED_LIB_NAME NAMES povcm PATHS ${LIB_PATH} NO_DEFAULT_PATH )
 FIND_LIBRARY(BASICDM_LIB_NAME NAMES basicclustering PATHS ${LIB_PATH} NO_DEFAULT_PATH )
 FIND_LIBRARY(KMEANS_LIB_NAME NAMES generalkmeans PATHS ${LIB_PATH} NO_DEFAULT_PATH )
+FIND_LIBRARY(GCLUST_LIB_NAME NAMES galoisclust PATHS ${LIB_PATH} NO_DEFAULT_PATH )
 # Measures
 FIND_LIBRARY(MEASURES_LIB_NAME NAMES measurestoolbox PATHS ${LIB_PATH} NO_DEFAULT_PATH )
-# Benchmarking
-SET( BENCHMARKING_LIB_NAME benchmark )
 ##
 SET( CMAKE_LIBARY_PATH ${CMAKE_LIBARY_PATH} ${ATLAS_LIB_PATH} ${LIB_PATH})
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
@@ -87,45 +86,29 @@ SET( BENCH_CORE_LIBS pthread
         dl
         ${ATLAS}
         ${PTBLAS}
-        ${MATRIX})
+        ${BMATRIX})
         
 SET( CORE_LIBS pthread
         dl
         ${ATLAS}
         ${PTBLAS}
-        ${MATRIX}
+        ${BMATRIX}
+        ${GLATT}
         ${TAB_IMPORT_LIB_NAME}
         ${LOUVAIN_LIB_NAME}
         ${MIXED_LIB_NAME}
         ${PAGERANK_LIB_NAME}
         ${CENTRALITY_LIB_NAME}
         ${KMEANS_LIB_NAME}
-        ${MEASURES_LIB_NAME})        
-################################################################################
-#Compile the benchmarking library
-SET(BENCH_SRCS  basicoperations.cpp
-          basicentropy.cpp
-          partitionsimilarity.cpp)
-  
-ADD_LIBRARY(${BENCHMARKING_LIB_NAME} SHARED ${BENCH_SRCS} )
-
-TARGET_LINK_LIBRARIES(${BENCHMARKING_LIB_NAME} ${BENCH_CORE_LIBS} )
-
-INSTALL( TARGETS ${BENCHMARKING_LIB_NAME} 
-            LIBRARY DESTINATION ${INSTALL_LIB_PATH} 
-            RUNTIME DESTINATION ${INSTALL_LIB_PATH}
-            ARCHIVE DESTINATION ${INSTALL_LIB_PATH} )
-
-INSTALL( FILES basicentropy.h DESTINATION ${INSTALL_INCLUDE_PATH} )
-INSTALL( FILES partitionsimilarity.h DESTINATION ${INSTALL_INCLUDE_PATH} )
-INSTALL( FILES basicoperations.h DESTINATION ${INSTALL_INCLUDE_PATH} )
+        ${MEASURES_LIB_NAME}
+        ${GCLUST_LIB_NAME})        
 ################################################################################
 # Compile the testing program
-SET( CPP_FILES experiment.cpp
+SET( CPP_FILES clusteringexperiment.cpp
           main.cpp )
           
 ADD_EXECUTABLE(${APPLICATION_NAME} ${CPP_FILES})
 
 # Link the main program against all the required libraries
-TARGET_LINK_LIBRARIES(${APPLICATION_NAME} ${TULIP_LIBRARY} ${CORE_LIBS} ${BENCHMARKING_LIB_NAME} )
+TARGET_LINK_LIBRARIES(${APPLICATION_NAME} ${TULIP_LIBRARY} ${CORE_LIBS} )
 ################################################################################

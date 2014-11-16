@@ -24,8 +24,7 @@
 
 SET(SRCS distances.cpp
         basicentropy.cpp
-        partitionsimilarity.cpp
-        basicoperations.cpp)
+        partitionsimilarity.cpp)
   
 SET( CPP_FILES ${SRCS} )
 
@@ -39,4 +38,3 @@ INSTALL( TARGETS ${MEASURES_LIB_NAME}
 INSTALL( FILES distances.h DESTINATION ${INSTALL_INCLUDE_PATH} )
 INSTALL( FILES basicentropy.h DESTINATION ${INSTALL_INCLUDE_PATH} )
 INSTALL( FILES partitionsimilarity.h DESTINATION ${INSTALL_INCLUDE_PATH} )
-INSTALL( FILES basicoperations.h DESTINATION ${INSTALL_INCLUDE_PATH} )

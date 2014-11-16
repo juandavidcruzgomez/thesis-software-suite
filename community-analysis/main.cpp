@@ -23,215 +23,183 @@
  THE SOFTWARE.
 */
 #include <iostream>
-#include <tulip/Graph.h>
+#include <ostream>
+#include <fstream>
 
-#include "utility.h"
-#include "importbase.h"
-#include "louvain.h"
-#include "povclustering.h"
-#include "pagerank.h"
-#include "centralitybased.h"
-#include "generalkmeans.h"
-#include "partitionsimilarity.h"
-#include "basicentropy.h"
+#include <getopt.h>
+
+#include <tulip/Graph.h>
+#include "clusteringexperiment.h"
+
 
 using namespace std;
 using namespace tlp;
 
+void usage(){
+  cerr << "This program implements the third version of the community\n";
+  cerr << "detection algorithm. This algorithm uses Galois lattices\n";
+  cerr << "to integrate the structural and the composition information\n";
+  cerr << "of the network.\n\n";
+  cerr << "The files required for this program to run are: a .tlp file\n";
+  cerr << "containing the graph, a .txt containing the composition patterns\n";
+  cerr << "or a .txt containing a partition from the composition patterns\n";
+  cerr << "and a .txt containing the ground truth partition." << endl;
+  cerr << "\nREQUIRED ARGUMENTS:\n";
+  cerr << "-g\tThe file containing the graph\n";
+  cerr << "-c\tThe file contaning the raw composition patterns\n";
+  cerr << "-p\tThe file containing the composition partition aff matrix\n";
+  cerr << "\nOPTIONAL ARGUMENTS:\n";
+  cerr << "-w\tThe directory to store all the files produced during the experiment\n";
+  cerr << "-t\tThe file containing the affiliation matrix with the ground truth\n";
+  cerr << "\tpartition. Note that if this file is set, an ARI test will be performed\n";
+  cerr << "\tthat if the output file is not provided, the partition will\n";
+  cerr << "-e\tA flag indicating whether or not the Galois lattice have to be\n";
+  cerr << "\tcreated using the raw patterns insted of the composition partition.\n";
+  cerr << "\tNote that the raw composition patterns have had to be set via the -c\n";
+  cerr << "\targument.\n\n";
+  cerr << "OTHER OPTIONS:\n";
+  cerr << "-h\tPrints this information." << endl;
+}
+
 int main( int argc, char** argv )
 {
-  /*// File parameters
-    // Input graph
-    //string graph_filename = "/home/juancrug/workspace/CommunityAnalysis/tests/cuisine_graph_file.tlp";
-    string graph_filename = argv[1];
-    // Table (patterns) input
-    //string filename = "/home/juancrug/workspace/CommunityAnalysis/tests/blogs_cuisine_red.txt";
-    string filename = argv[2];
-    // Resulting graph
-    //string ret_graph_filename = "/home/juancrug/workspace/CommunityAnalysis/tests/cuisine_graph_file_result.tlp";
-    string ret_graph_filename = argv[3];
-    // Load the graph
-    Graph* graph = loadGraph( graph_filename.c_str() );
-    ImportBase* import = new ImportBase( graph, "data_vector" );
-    import->set_filename( filename );
-    import->read_file( 1 );
-    
-    Graph* subg = graph->addCloneSubGraph();
-    cout << "Calculating partition using Louvain: " << endl;
-    Louvain lou( subg, 250, 10E-5, "structural" );
-    lou.execute_algorithm();
-    int louvain_communities = subg->numberOfSubGraphs();
-    cout << "Final partition contains " << louvain_communities << " communities." << endl;
-    //Save the graph
-    saveGraph( graph, ret_graph_filename );*/
-  if( argc < 4 )
+  //Check the arguments of the program
+  int option;
+  //Option -g giving the graph tlp file
+  string graph_filename = "";
+  //Option -c for the composition patterns: these are the raw patterns
+  string raw_comp_patterns = "";
+  //Option -p for a partition of the nodes to be used with the Galois algorithm
+  string composition_partition = "";
+  //Option -n the name of the experiment
+  string experiment_name = "";
+  //Option -w working directory (where the result files will be placed)
+  //If none provided, it will be use the actual dir
+  string working_dir = "./";
+  //Option -t define a file to use a ground truth
+  string gtruth_file = "";
+  //Option -e use extended version for building the Galois lattice
+  //i.e., use the raw binary features instead of the composition 
+  //partition to build the lattice
+  int extended = 0;
+  int errflag = 0;
+  while( (option=getopt(argc, argv, ":ehg:c:p:n:w:t:" ) ) != -1  )
   {
-    /*string graph_filename = "/home/juancrug/Documents/Romain/wiki.tlp";
-    string ret_graph_filename = "/home/juancrug/Documents/Romain/wiki_clust.tlp";
-    Graph* graph = loadGraph( graph_filename.c_str() );
-    Louvain lou( graph, 250, 10E-5, "structural" );
-    lou.execute_algorithm();
-    int louvain_communities = graph->numberOfSubGraphs();
-    cout << "Final partition contains " << louvain_communities << " communities." << endl;
-    saveGraph( graph, ret_graph_filename );*/
-    cerr << "The number of arguments is not valid. Use:\nanalysistest <input graph filename> <input patterns filename> <output graph filename>" <<endl;
+    switch( option )
+    {
+      case 'g':
+	graph_filename = optarg;
+	break;
+      case 'c':
+	raw_comp_patterns = optarg;
+	break;
+      case 'p':
+	composition_partition = optarg;
+	break;
+      case 'n':
+	experiment_name = optarg;
+	break;
+      case 'w':
+	working_dir = optarg;
+	break;
+      case  't':
+	gtruth_file = optarg;
+	break;
+      case 'e':
+	extended = 1;
+	break;
+      case 'h':
+	usage();
+	return 0;
+	break;
+      case ':':
+	if( optopt == 'g' || optopt == 'c' || optopt == 'p' || optopt == 'n' || optopt == 'w' || optopt == 't' )
+	{
+	  cerr << "Option -" << (char)optopt << " requires a valid argument." << endl;
+	  errflag++;
+	}
+	break;
+      case '?':
+	  cerr << "Unknown option -" << (char)optopt << endl;
+	  errflag++;
+	break;
+      default:
+	break;
+    }
+  }
+  if( errflag > 0 )
+  {
+    usage();
     return 1;
   }else{
-    // File parameters
-    // Input graph
-    //string graph_filename = "/home/juancrug/workspace/CommunityAnalysis/tests/cuisine_graph_file.tlp";
-    string graph_filename = argv[1];
-    // Table (patterns) input
-    //string filename = "/home/juancrug/workspace/CommunityAnalysis/tests/blogs_cuisine_red.txt";
-    string filename = argv[2];
-    // Resulting graph
-    //string ret_graph_filename = "/home/juancrug/workspace/CommunityAnalysis/tests/cuisine_graph_file_result.tlp";
-    string ret_graph_filename = argv[3];
-    // Load the graph
-    Graph* graph = loadGraph( graph_filename.c_str() );
-    // Load the patterns as a property
-    // Name the property
-    string pattern_property = "data_vector";
-    ImportBase* import = new ImportBase( graph, pattern_property );
-    import->set_filename( filename );
-    import->read_file( 1 );
-    // Set the experiments up
-    // Create one clone graph for each community detection experiment
-    //string experiments_name[] = {"louvain","povclustering","centralitybased_lou","centralitybased_pov","dm_lou","dm_pov"};
-    // k-means entropy tests
-    /*map<string, BasicEntropy*> sub_groups_ent_map;
-    map<string, Graph*> sub_groups_map;
-    int nb_nodes = graph->numberOfNodes();
-    for( int i = 0; i < nb_nodes; ++i )
+    if( graph_filename != "" && composition_partition != "" && raw_comp_patterns != ""  )
     {
-      stringstream name;
-      name << "kmeans_" << (i+1);
-      sub_groups_map[name.str()] = graph->addCloneSubGraph();
-      sub_groups_map[name.str()]->setName( name.str() );
-      sub_groups_ent_map[name.str()] = new BasicEntropy( sub_groups_map[name.str()], pattern_property );
+      //To store the clustered graph
+      string ret_graph_filename = working_dir;
+      ret_graph_filename.append("clustered_graph_").append(experiment_name).append(".tlp");
+      //To store the resulting lattice
+      string export_filename = working_dir;
+      export_filename.append("lattice_").append(experiment_name).append(".txt");
+      //To store the extended lattice
+      string ext_export_filename = working_dir;
+      ext_export_filename.append("extended_lattice_").append(experiment_name).append(".txt");
+      //Logging
+      string log_filename = working_dir;
+      log_filename.append("stats_").append(experiment_name).append(".txt");
+      // Objects for logging:
+      filebuf file;
+      file.open(log_filename.c_str(), ios::out );
+      ostream os(&file);
+      // Load the graph
+      Graph* graph = loadGraph( graph_filename.c_str() );
+      // Load the patterns as a property
+      // Name the property
+      string pattern_property = "data_vector";
+      
+      ClusteringExperiment experiments( graph, raw_comp_patterns, experiment_name );
+       //Import the patterns
+      experiments.import_patterns();
+      
+      experiments.add_experiment("Louvain",LOUVAIN);
+      experiments.add_experiment("PoV", POV);
+      
+      //Prepare the Matrix for the Galois lattice
+      int rows = graph->numberOfNodes();
+      Matrix* composition_aff_mat;
+      if( extended )
+      {
+	composition_aff_mat = loadPartitionMatrix(raw_comp_patterns, rows );
+      }else{
+	composition_aff_mat = loadPartitionMatrix(composition_partition, rows );
+      }
+      
+      experiments.initialize_lattice( composition_aff_mat, 0 );
+      experiments.add_experiment("Galois", GALOIS);
+      
+      
+      experiments.start_resgistered_experiments(os);
+      
+      experiments.calculate_statistics(os);
+      if( gtruth_file != "" )
+      {
+	Matrix* gtruth_matrix = load_gtruth_partition( graph, gtruth_file );
+	//gtruth_matrix->printMatrix();
+	experiments.set_ground_truth( gtruth_matrix );
+	experiments.calculate_against_ground_truth(os);
+      }
+      
+      os.flush();
+      file.close();
+      
+      saveGraph( graph, ret_graph_filename );
+      
+      
+      delete composition_aff_mat;
+      delete graph;
+      return 0;
+    }else{
+      usage();
+      return 1;
     }
-    map<string, Graph*>::iterator sub_groups_map_iter;
-    int k = 1;
-    cout << "k\tDensity\tEntropy" << endl;
-    for( sub_groups_map_iter = sub_groups_map.begin(); sub_groups_map_iter != sub_groups_map.end(); ++sub_groups_map_iter )
-    {
-      GeneralKMeans kmeans( sub_groups_map_iter->second, 100, 1E-5, "kmeans_based", pattern_property, k );
-      kmeans.execute_algorithm();
-      double ent = sub_groups_ent_map[sub_groups_map_iter->first]->calculatePartitionEntropy();
-      double dens = edge_density( sub_groups_map_iter->second );     
-      cout << k << "\t" << dens << "\t" << ent << endl;
-      k++;
-    }*/
-    
-    /*map<string, BasicEntropy*> sub_groups_ent_map;
-    map<string, Graph*> sub_groups_map;
-    int nb_nodes = graph->numberOfNodes();
-    for( int i = 0; i < nb_nodes; ++i )
-    {
-      stringstream name;
-      name << "pagerank_" << (i+1);
-      sub_groups_map[name.str()] = graph->addCloneSubGraph();
-      sub_groups_map[name.str()]->setName( name.str() );
-      sub_groups_ent_map[name.str()] = new BasicEntropy( sub_groups_map[name.str()], pattern_property );
-    }
-    map<string, Graph*>::iterator sub_groups_map_iter;
-    int k = 1;
-    cout << "k\tDensity\tEntropy" << endl;
-    for( sub_groups_map_iter = sub_groups_map.begin(); sub_groups_map_iter != sub_groups_map.end(); ++sub_groups_map_iter )
-    {
-      CentralityBased cent_clust( sub_groups_map_iter->second, 100, 1E-5, "cent_based", PAGERANK, k );
-      cent_clust.execute_algorithm();
-      double ent = sub_groups_ent_map[sub_groups_map_iter->first]->calculatePartitionEntropy();
-      double dens = edge_density( sub_groups_map_iter->second );     
-      cout << k << "\t" << dens << "\t" << ent << endl;
-      k++;
-    }*/
-    
-    string experiments_name[] = {"louvain","povclustering","pagerank","kmeans"};
-    map<string, Graph*> sub_groups_map;
-    map<string, BasicEntropy*> sub_groups_ent_map;
-    for( int i = 0; i < 4; i++ )
-    {
-      sub_groups_map[experiments_name[i]] = graph->addCloneSubGraph();
-      sub_groups_map[experiments_name[i]]->setName( experiments_name[i] );
-      sub_groups_ent_map[experiments_name[i]] = new BasicEntropy( sub_groups_map[experiments_name[i]], pattern_property );
-    }
-    // Now, the methods:
-    // Louvain
-    cout << "Calculating partition using Louvain: " << endl;
-    Louvain lou( sub_groups_map["louvain"], 250, 10E-5, "structural" );
-    lou.execute_algorithm();
-    int louvain_communities = sub_groups_map["louvain"]->numberOfSubGraphs();
-    cout << "Final partition contains " << louvain_communities << " communities." << endl;
-    // PoV Clustering
-    cout << "Calculating partition using PoV Clustering: " << endl;  
-    PoVClustering pov( sub_groups_map["povclustering"], 250, 10E-5, "mixed_partition", pattern_property );
-    pov.execute_algorithm();
-    int pov_communities = sub_groups_map["povclustering"]->numberOfSubGraphs();
-    color_partitions( sub_groups_map["povclustering"] );
-    cout << "Final partition contains " << pov_communities << " communities." << endl;
-    // Centrality based - Louvain size
-    cout << "Calculating partition using Kmeans like using PageRank: " << endl;
-    CentralityBased cent_clust( sub_groups_map["pagerank"], 100, 1E-5, "cent_based", PAGERANK, 109 );
-    cent_clust.execute_algorithm();
-    clean_partition( sub_groups_map["pagerank"] );
-    color_partitions( sub_groups_map["pagerank"] );
-    int pr_lou_communities = sub_groups_map["pagerank"]->numberOfSubGraphs();
-    cout << "Final partition contains " << pr_lou_communities << " communities." << endl;
-    // Data mining - lou size
-    cout << "Calculating partition using Kmeans: " << endl;
-    GeneralKMeans kmeans( sub_groups_map["kmeans"], 100, 1E-5, "kmeans_based", pattern_property, 64 );
-    kmeans.execute_algorithm();
-    clean_partition( sub_groups_map["kmeans"] );
-    color_partitions( sub_groups_map["kmeans"] );
-    int dm_lou_communities = sub_groups_map["kmeans"]->numberOfSubGraphs();
-    cout << "Final partition contains " << dm_lou_communities << " communities." << endl;
-    // Bechmarking part
-    // Entropy
-    map<string, BasicEntropy*>::iterator entropy_iterator;
-    for( entropy_iterator = sub_groups_ent_map.begin(); entropy_iterator != sub_groups_ent_map.end(); ++entropy_iterator )
-    {
-      cout << "Stats for the group " << entropy_iterator->first << ": " << endl;
-      double ent = entropy_iterator->second->calculatePartitionEntropy();
-      float dens = edge_density( sub_groups_map[entropy_iterator->first] );      
-      cout << "Entropy: " << ent <<  endl;
-      cout << "Density: " << dens << endl;
-      cout << "--------------------------------------------------" << endl;
-    }
-    //ARI and NMI
-    double ari = 0.0;
-    //double nmi = 0.0;
-    //Testing ARI, should guive 1
-    ari = calculate_ARI( sub_groups_map["louvain"], sub_groups_map["louvain"] );
-    cout << "ARI (Louvain vs Louvain): " << ari << endl;
-    //Louvain vs PoV
-    ari = calculate_ARI( sub_groups_map["louvain"], sub_groups_map["povclustering"] );
-    //nmi = calculate_NMI( sub_groups_map["louvain"], sub_groups_map["povclustering"] );
-    cout << "ARI (Louvain vs PoV): " << ari << endl;
-    //cout << "NMI (Louvain vs PoV): " << nmi << endl;
-    //Louvain vs Kmeans
-    ari = calculate_ARI( sub_groups_map["louvain"], sub_groups_map["kmeans"] );
-    cout << "ARI (Louvain vs k-means(lou)): " << ari << endl;
-    //Louvain vs Pagerank
-    ari = calculate_ARI( sub_groups_map["louvain"], sub_groups_map["pagerank"] );
-    cout << "ARI (Louvain vs pagerank (lou)): " << ari << endl;
-    //PoV vs Kmeans
-    ari = calculate_ARI( sub_groups_map["povclustering"], sub_groups_map["kmeans"] );
-    cout << "ARI (PoV vs k-means (lou)): " << ari << endl;
-    //Pov vs PageRank
-    ari = calculate_ARI( sub_groups_map["povclustering"], sub_groups_map["pagerank"] );
-    cout << "ARI (PoV vs pagerank (lou)): " << ari << endl;
-    //Kmeans vs PageRank
-    ari = calculate_ARI( sub_groups_map["kmeans"], sub_groups_map["pagerank"] );
-    cout << "ARI (k-means (lou) vs pagerank (lou)): " << ari << endl;
-    //Save the graph
-    saveGraph( graph, ret_graph_filename );
-    //DataSet dataSet;
-    //tlp::exportGraph(newGraph, tmpss, "tlp", dataSet, NULL);
-    //fstream out( ret_graph_filename.c_str(), std::fstream::out );
-    //exportGraph( graph, out, "tlp", dataSet, NULL );
-    delete import;
-    delete graph;
   }
-  return 0;
 }

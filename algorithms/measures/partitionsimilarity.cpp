@@ -172,7 +172,6 @@ Matrix* generate_contingency_matrix( Matrix* partition_a, Matrix* partition_b )
   assert( partition_a != 0 && partition_b != 0 );
   int m = partition_a->getNcols();
   int n = partition_b->getNcols();
-  int k = partition_a->getNrows();
   partition_a->transpose();
   Matrix* contingency_matrix = new Matrix( m, n, COLUMN_MAJOR );
   partition_a->matMult( partition_b, contingency_matrix, 1.0 );

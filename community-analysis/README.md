@@ -61,4 +61,48 @@ juancrug@juandavid-office:~/path-to-repo/software-suite/community-analysis/build
 At this stage the libraries should be installed in /PREFIX/lib while the public interfaces (.h files) should be in /PREFIX/
 
 ## Using it
-Take a look to the main.cpp file.
+Usage:
+
+~~~~
+./analysistest 
+This program implements a platform for comparing community
+detection algorithms.
+
+The files required for this program to run are: a .tlp file
+containing the graph, a .txt containing the composition patterns
+or a .txt containing a partition from the composition patterns
+and a .txt containing the ground truth partition.
+
+REQUIRED ARGUMENTS:
+-g	The file containing the graph
+-c	The file contaning the raw composition patterns
+-p	The file containing the composition partition aff matrix
+-n	The name of the experiment
+
+OPTIONAL ARGUMENTS:
+-w	The directory to store all the files produced during the experiment
+-t	The file containing the affiliation matrix with the ground truth
+	partition. Note that if this file is set, an ARI test will be performed
+	that if the output file is not provided, the partition will
+-e	A flag indicating whether or not the Galois lattice have to be
+	created using the raw patterns insted of the composition partition.
+	Note that the raw composition patterns have had to be set via the -c
+	argument.
+
+OTHER OPTIONS:
+-h	Prints this information.
+
+~~~~
+Within the folder build execute for example:
+~~~~
+juancrug@juandavid-office:~/path-to-repo/software-suite/community-analysis/build$./analysistest -g ../tests/personalNetwork.tlp -c ../tests/fb_composition.txt -p ../tests/fb_composition.txt -w ../tests/ -n example
+~~~~
+
+The output, in this case, is saved in the directory '../tests', which is defined by the flag '-w'. The output produce two files are:
+
+~~~~
+stats_example.txt: the statistics of the algorithms
+clustered_graph_example.tlp: the Tulip file containing all the partitions produced by the algorithms
+~~~~
+
+Note that 'example' is the name given to the experiment through the -n flag.

@@ -102,15 +102,16 @@ bool SOMClusteringPlugin::run() {
     if ( !dataSet->get( "file::Patterns file", filename ) ) {
         return false;
     }
-    SOMClusteringSpace space(graph,group_prefix,lambda,lambda,epsilon,lrate);
-    if( space.start_algorithm() ){
-	space.getPartitionConfiguration();
-	assignEdgesToGroups();
+    space = new SOMClusteringSpace(graph,group_prefix,lambda,lambda,epsilon,lrate);
+    if( space->start_algorithm() ){
+	    space->getPartitionConfiguration();
+	    assignEdgesToGroups();
     }else{
       Observable::unholdObservers();
       return false;
     }
     Observable::unholdObservers();
+    delete space;
     return true;
 }
 

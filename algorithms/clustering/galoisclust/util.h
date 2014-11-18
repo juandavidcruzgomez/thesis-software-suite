@@ -22,8 +22,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
 */
-#ifndef __UTIL_H__
-#define __UTIL_H__
+#ifndef UTIL_H
+#define UTIL_H
 
 #include <cstring>
 #include <fstream>

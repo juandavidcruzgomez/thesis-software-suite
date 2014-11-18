@@ -65,6 +65,9 @@ public:
   
   void assignEdgesToGroups();
   
+private:
+  SOMClusteringSpace* space;
+  
 };
 
 /*@}*/

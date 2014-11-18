@@ -105,7 +105,8 @@ SET( CORE_LIBS pthread
 ################################################################################
 # Compile the testing program
 SET( CPP_FILES clusteringexperiment.cpp
-          main.cpp )
+          experiment.cpp
+          test_experiment.cpp )
           
 ADD_EXECUTABLE(${APPLICATION_NAME} ${CPP_FILES})
 

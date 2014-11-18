@@ -43,9 +43,9 @@
 
 #include <tulip/Graph.h>
 
-#include "util.h"
-#include "basicgaloisclustering.h"
-#include "latticeexporter.h"
+#include <util.h>
+#include <basicgaloisclustering.h>
+#include <latticeexporter.h>
 
 #define LOUVAIN	0
 #define POV	1

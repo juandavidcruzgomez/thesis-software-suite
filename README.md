@@ -111,6 +111,7 @@ This library implements a data structure called trie (pronounced as try) that is
 This is used for to index the concepts of the lattice while being generated.
 
 ### Basic community detection and visualization algorithms
+![Clustering algorithms class diagram](https://bytebucket.org/juandavidcruz_tb/software-suite/raw/069378822e6f79e33f9747400585281462e1c03a/Clustering.png?token=e821736fecaab11ad2be5a5c6ee07be438f53011)
 
 #### Community detection V1: weight modification
 This is the first version of the algorithm for detecting communities: first, the version in which the weights of the edges of the graphs are modified using the information from a SOM clustering, then the Louvain's algorithm is used to find the final communities.

@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/21803/juandavidcruz/thesis-software-suite.svg)](https://zenodo.org/badge/latestdoi/21803/juandavidcruz/thesis-software-suite)
+
 # Juan David Cruz-Gómez PhD Thesis software suite
 
 This repository contains several software projects developed during my PhD thesis at Telecom - Bretagne. Since the software and algorithms were mostly written for papers and thus in a rush, the code may not be the best and cleanest code you may ever seen.

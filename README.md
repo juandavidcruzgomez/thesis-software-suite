@@ -31,10 +31,18 @@ However, in an effort to write clean code, I try to document all the code and to
         
 ## Notice and license
 -------------------------
-The MIT License (MIT)
+EUROPEAN UNION PUBLIC LICENCE v. 1.2 
+
+The Work is provided under the terms of this Licence when the Licensor 
+(as defined below) has placed the following notice immediately following 
+the copyright notice for the Work: 
+                          Licensed under the EUPL 
+or has expressed by any other means his willingness to license under the 
+EUPL.
 
 Copyright (c) 2014 Juan David Cruz Gómez and Telecom - Bretagne
 juan.cruzgomez@telecom-bretagne.eu
+juandavidcruz@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

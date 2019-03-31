@@ -8,26 +8,26 @@ However, in an effort to write clean code, I try to document all the code and to
 
 ## Table of contents
 
-* [Notice and license](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-notice-and-license)
-* [Installing CMake](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-installing-cmake)
-* [Installing and configuring Tulip](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-installing-and-configuring-tulip)
-* [Installing and configuring ATLAS](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-installing-and-configuring-atlas)
-* [Projects](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-projects)
-    * [Base algorithms](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-base-algorithms)
-        * [Matrix library](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-matrix-library)
-        * [Multidimensional scaling](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-multidimensional-scaling)
-        * [Trie structure](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-trie-structure)
-    * [Basic community detection and visualization algorithms](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-basic-community-detection-and-visualization-algorithms)
-        * [Community detection V1: weight modification](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-community-detection-v1-weight-modification)
-        * [Community detection V2: contingency matrix manupulation](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-community-detection-v2-contingency-matrix-manupulation)
-        * [Community detection V3: Galois lattice-based community detection](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-community-detection-v3-galois-lattice-based-community-detection)
-        * [Note on the entropy version](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-note-on-the-entropy-version)
-        * [Boundary communities visualization algorithm](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-boundary-communities-visualization-algorithm)
-    * [Tulip plugins](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-tulip-plugins)
-        * [Importers](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-importers)
-        * [Community detection](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-community-detection)
-        * [Visualization](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-visualization)
-        * [Point of view manipulation](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-point-of-view-manipulation)
+* [Notice and license](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-notice-and-license)
+* [Installing CMake](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-installing-cmake)
+* [Installing and configuring Tulip](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-installing-and-configuring-tulip)
+* [Installing and configuring ATLAS](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-installing-and-configuring-atlas)
+* [Projects](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-projects)
+    * [Base algorithms](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-base-algorithms)
+        * [Matrix library](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-matrix-library)
+        * [Multidimensional scaling](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-multidimensional-scaling)
+        * [Trie structure](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-trie-structure)
+    * [Basic community detection and visualization algorithms](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-basic-community-detection-and-visualization-algorithms)
+        * [Community detection V1: weight modification](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-community-detection-v1-weight-modification)
+        * [Community detection V2: contingency matrix manupulation](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-community-detection-v2-contingency-matrix-manupulation)
+        * [Community detection V3: Galois lattice-based community detection](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-community-detection-v3-galois-lattice-based-community-detection)
+        * [Note on the entropy version](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-note-on-the-entropy-version)
+        * [Boundary communities visualization algorithm](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-boundary-communities-visualization-algorithm)
+    * [Tulip plugins](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-tulip-plugins)
+        * [Importers](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-importers)
+        * [Community detection](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-community-detection)
+        * [Visualization](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-visualization)
+        * [Point of view manipulation](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-point-of-view-manipulation)
         
 ## Notice and license
 -------------------------
@@ -95,13 +95,13 @@ This library encapsulates the behavior of a matrix object and implements several
 
 As you can imagine, this library has to be linked against the ATLAS library.
 
-Find the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/base/matrix-lib/?at=master).
+Find the code [here](https://github.com/juandavidcruz/thesis-software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/base/matrix-lib/?at=master).
 
 #### Multidimensional scaling
 
-This library isolates the MDS-SMACOF algorithm from [Borg & Groenen](http://www.springer.com/statistics/social+sciences+%26+law/book/978-0-387-25150-9) and makes it available for other algorithms such as the [boundary communities visualization algorithm](https://bitbucket.org/juandavidcruz_tb/software-suite#markdown-header-visualization).
+This library isolates the MDS-SMACOF algorithm from [Borg & Groenen](http://www.springer.com/statistics/social+sciences+%26+law/book/978-0-387-25150-9) and makes it available for other algorithms such as the [boundary communities visualization algorithm](https://github.com/juandavidcruz/thesis-software-suite#markdown-header-visualization).
 
-Find the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/base/mds-smacof/?at=master).
+Find the code [here](https://github.com/juandavidcruz/thesis-software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/base/mds-smacof/?at=master).
 
 #### Trie structure
 
@@ -115,7 +115,7 @@ This is used for to index the concepts of the lattice while being generated.
 #### Community detection V1: weight modification
 This is the first version of the algorithm for detecting communities: first, the version in which the weights of the edges of the graphs are modified using the information from a SOM clustering, then the Louvain's algorithm is used to find the final communities.
 
-Find the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/algorithms/clustering/mixed/?at=master).
+Find the code [here](https://github.com/juandavidcruz/thesis-software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/algorithms/clustering/mixed/?at=master).
 
 #####Papers
 * [Analyse intégrée des réseaux sociaux pour la détection et la visualisation de communautés - TSI 2014](http://tsi.revuesonline.com/article.jsp?articleId=19440)
@@ -170,7 +170,7 @@ This is the visualization algorithm that divides the nodes into two kinds: bound
 ### Tulip plugins
 These are the Tulip plugin version of the algorithms, i.e., the plugin definitions for the algorithms in such a way they can be used from Tulip menu.
 
-These plugins should be compiled from the root folder. Get to the code [here](https://bitbucket.org/juandavidcruz_tb/software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/pov-plugins/?at=master) and follow the instructions there to compile.
+These plugins should be compiled from the root folder. Get to the code [here](https://github.com/juandavidcruz/thesis-software-suite/src/e5556b109d24f6ece8c9dc28f0aeb5b82362afde/pov-plugins/?at=master) and follow the instructions there to compile.
 
 #### Importers
 This folder is meant to contain importers from different king of files. Up to now there is only the [DIMACS](http://www.cc.gatech.edu/dimacs10/downloads.shtml) graph files importer.
